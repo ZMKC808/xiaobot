@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小报童文章下载器 v3.0</title>
+  <style>
+    body {
+      width: 320px;
+      padding: 0;
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 14px;
+      background: #f8f9fa;
+    }
+    
+    .header {
+      background: linear-gradient(135deg, #007cba, #0056b3);
+      color: white;
+      padding: 16px;
+      text-align: center;
+    }
+    
+    .header h1 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+    }
+    
+    .header .version {
+      font-size: 12px;
+      opacity: 0.9;
+      margin-top: 4px;
+    }
+    
+    .content {
+      padding: 20px;
+    }
+    
+    .info-box {
+      background: #e3f2fd;
+      border: 1px solid #2196f3;
+      border-radius: 6px;
+      padding: 12px;
+      margin-bottom: 16px;
+    }
+    
+    .info-box h3 {
+      margin: 0 0 8px 0;
+      color: #1976d2;
+      font-size: 14px;
+    }
+    
+    .info-box p {
+      margin: 0;
+      color: #424242;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+    
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      margin: 12px 0 0 0;
+    }
+    
+    .feature-list li {
+      padding: 4px 0;
+      font-size: 12px;
+      color: #424242;
+    }
+    
+    .feature-list li:before {
+      content: "✓ ";
+      color: #4caf50;
+      font-weight: bold;
+    }
+    
+    .instructions {
+      background: #fff3cd;
+      border: 1px solid #ffc107;
+      border-radius: 6px;
+      padding: 12px;
+      margin-bottom: 16px;
+    }
+    
+    .instructions h4 {
+      margin: 0 0 8px 0;
+      color: #856404;
+      font-size: 14px;
+    }
+    
+    .instructions ol {
+      margin: 8px 0 0 0;
+      padding-left: 20px;
+    }
+    
+    .instructions li {
+      margin: 4px 0;
+      font-size: 12px;
+      color: #856404;
+      line-height: 1.4;
+    }
+    
+    .warning {
+      background: #f8d7da;
+      border: 1px solid #dc3545;
+      border-radius: 6px;
+      padding: 12px;
+      margin-bottom: 16px;
+    }
+    
+    .warning p {
+      margin: 0;
+      color: #721c24;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+    
+    .btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-bottom: 12px;
+    }
+    
+    .btn-primary {
+      background: #007cba;
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background: #0056b3;
+    }
+    
+    .btn-secondary {
+      background: #6c757d;
+      color: white;
+    }
+    
+    .btn-secondary:hover {
+      background: #545b62;
+    }
+    
+    .footer {
+      text-align: center;
+      padding: 12px;
+      border-top: 1px solid #dee2e6;
+      background: white;
+    }
+    
+    .footer p {
+      margin: 0;
+      font-size: 11px;
+      color: #6c757d;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>小报童文章下载器</h1>
+    <div class="version">v3.0 去中心化架构</div>
+  </div>
+  
+  <div class="content">
+    <div class="info-box">
+      <h3>🎉 v3.0 重大更新</h3>
+      <p>采用全新的去中心化架构，彻底解决Extension context invalidated问题！</p>
+      <ul class="feature-list">
+        <li>API拦截技术，确保数据完整</li>
+        <li>去中心化架构，避免上下文失效</li>
+        <li>可视化界面，实时显示进度</li>
+        <li>本地下载，无需后台服务</li>
+      </ul>
+    </div>
+    
+    <div class="instructions">
+      <h4>📋 使用说明</h4>
+      <ol>
+        <li>打开小报童专栏页面</li>
+        <li><strong>手动滚动到页面底部</strong>，确保文章列表完全加载</li>
+        <li>页面右上角会自动出现下载器界面</li>
+        <li>点击"开始抓取"按钮</li>
+        <li>等待抓取完成后，点击"下载文件"</li>
+        <li>选择需要的文件进行下载</li>
+      </ol>
+    </div>
+    
+    <div class="warning">
+      <p><strong>⚠️ 重要提示：</strong>v3.0版本采用页面内嵌界面，不再使用此弹窗。请直接在小报童页面上操作。如果没有看到下载器界面，请刷新页面。</p>
+    </div>
+    
+    <button class="btn btn-primary" id="openTab">打开小报童网站</button>
+    <button class="btn btn-secondary" id="closePopup">关闭此窗口</button>
+  </div>
+  
+  <div class="footer">
+    <p>如有问题，请刷新页面后重试</p>
+  </div>
+  
+  <script>
+    document.getElementById('openTab').onclick = () => {
+      chrome.tabs.create({ url: 'https://xiaobot.net' });
+      window.close();
+    };
+    
+    document.getElementById('closePopup').onclick = () => {
+      window.close();
+    };
+  </script>
+</body>
+</html>
+
